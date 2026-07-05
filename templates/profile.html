@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Prevento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top left, #6c63ff, #4b49ff 30%, #2e2be0 70%, #090a38);
+            color: #f7f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .profile-card {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(135deg, rgba(108,99,255,0.95), rgba(83,167,255,0.95));
+            padding: 30px 32px;
+        }
+        .profile-header h1 {
+            margin: 0;
+            font-size: 2.4rem;
+            letter-spacing: -0.02em;
+        }
+        .profile-header p {
+            margin: 8px 0 0;
+            color: rgba(255,255,255,0.85);
+        }
+        .profile-body {
+            padding: 32px;
+        }
+        .form-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .form-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #f5f7ff;
+        }
+        .form-control {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.16);
+            color: #f7f7ff;
+        }
+        .form-control:focus {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.35);
+            box-shadow: 0 0 0 0.15rem rgba(108,99,255,0.25);
+        }
+        .form-label {
+            color: rgba(255,255,255,0.85);
+        }
+        .btn-primary {
+            background: #5e56ff;
+            border-color: #5e56ff;
+        }
+        .btn-primary:hover {
+            background: #5044e6;
+            border-color: #5044e6;
+        }
+        .flash-alert {
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 24px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.14);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="profile-header">
+            <h1>My Profile</h1>
+            <p>Update your account details and password.</p>
+        </div>
+        <div class="profile-body">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-alert">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' if category == 'error' else category }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="form-card">
+                        <h2>Account Details</h2>
+                        <form method="post">
+                            <input type="hidden" name="form_type" value="details">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" value="{{ user.username }}" readonly>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label" for="first_name">First Name</label>
+                                    <input id="first_name" name="first_name" type="text" class="form-control" value="{{ user.first_name or '' }}">
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label" for="last_name">Last Name</label>
+                                    <input id="last_name" name="last_name" type="text" class="form-control" value="{{ user.last_name or '' }}">
+                                </div>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label class="form-label" for="email">Email</label>
+                                <input id="email" name="email" type="email" class="form-control" value="{{ user.email or '' }}">
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label class="form-label" for="age">Age</label>
+                                    <input id="age" name="age" type="number" min="0" class="form-control" value="{{ user.age or '' }}">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label" for="gender">Gender</label>
+                                    <input id="gender" name="gender" type="text" class="form-control" value="{{ user.gender or '' }}">
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-3">
+                                <div class="col-6">
+                                    <label class="form-label" for="weight">Weight (kg)</label>
+                                    <input id="weight" name="weight" type="number" step="0.1" class="form-control" value="{{ user.weight or '' }}">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label" for="height">Height (cm)</label>
+                                    <input id="height" name="height" type="number" step="0.1" class="form-control" value="{{ user.height or '' }}">
+                                </div>
+                            </div>
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-primary">Save Details</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-card">
+                        <h2>Change Password</h2>
+                        <form method="post">
+                            <input type="hidden" name="form_type" value="password">
+                            <div class="mb-3">
+                                <label class="form-label" for="current_password">Current Password</label>
+                                <input id="current_password" name="current_password" type="password" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="new_password">New Password</label>
+                                <input id="new_password" name="new_password" type="password" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="confirm_new_password">Confirm New Password</label>
+                                <input id="confirm_new_password" name="confirm_new_password" type="password" class="form-control" required>
+                            </div>
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

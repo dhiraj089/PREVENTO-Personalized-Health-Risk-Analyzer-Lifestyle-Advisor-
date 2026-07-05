@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Prevento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating Medical Icons Animation */
+        .floating-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .floating-icon:nth-child(3) {
+            bottom: 30%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        .floating-icon:nth-child(4) {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        .floating-icon:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+        
+        .floating-icon:nth-child(6) {
+            top: 60%;
+            right: 5%;
+            animation-delay: 5s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+                opacity: 0.6;
+            }
+        }
+        
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #28a745;
+            animation: confettiFall 3s linear infinite;
+            z-index: 0;
+        }
+        
+        .confetti:nth-child(1) { left: 10%; animation-delay: 0s; background: #28a745; }
+        .confetti:nth-child(2) { left: 20%; animation-delay: 0.5s; background: #20c997; }
+        .confetti:nth-child(3) { left: 30%; animation-delay: 1s; background: #0dcaf0; }
+        .confetti:nth-child(4) { left: 40%; animation-delay: 1.5s; background: #ffc107; }
+        .confetti:nth-child(5) { left: 50%; animation-delay: 2s; background: #fd7e14; }
+        .confetti:nth-child(6) { left: 60%; animation-delay: 0.3s; background: #e83e8c; }
+        .confetti:nth-child(7) { left: 70%; animation-delay: 0.8s; background: #6f42c1; }
+        .confetti:nth-child(8) { left: 80%; animation-delay: 1.3s; background: #198754; }
+        .confetti:nth-child(9) { left: 90%; animation-delay: 1.8s; background: #0d6efd; }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .result-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 90%;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: slideInUp 1s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-header {
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .prediction-result {
+            background: rgba(40, 167, 69, 0.2);
+            border: 2px solid rgba(40, 167, 69, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+            animation: bounceIn 0.8s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .prediction-result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: resultShimmer 2s ease-in-out infinite;
+        }
+        
+        @keyframes resultShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .prediction-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #28a745;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            animation: typewriter 2s ease-out 1s both;
+        }
+        
+        @keyframes typewriter {
+            from {
+                width: 0;
+                overflow: hidden;
+            }
+            to {
+                width: 100%;
+                overflow: visible;
+            }
+        }
+        
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            animation: successBounce 1s ease-out 0.8s both;
+        }
+        
+        @keyframes successBounce {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Disease Stage Section */
+        .stage-section {
+            background: rgba(108, 117, 125, 0.2);
+            border: 2px solid rgba(108, 117, 125, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+            animation: slideInRight 0.8s ease-out 0.7s both;
+            position: relative;
+        }
+        
+        .stage-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .stage-icon {
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .stage-name {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stage-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .severity-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            margin-top: 15px;
+        }
+        
+        .severity-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        .severity-value {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .advice-section {
+            background: rgba(13, 202, 240, 0.2);
+            border: 2px solid rgba(13, 202, 240, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+            animation: slideInLeft 0.8s ease-out 0.9s both;
+            position: relative;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .advice-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0dcaf0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .advice-title .icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+        .advice-text {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+        
+        .advice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .advice-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-out both;
+        }
+        
+        .advice-item:nth-child(1) { animation-delay: 1.2s; }
+        .advice-item:nth-child(2) { animation-delay: 1.3s; }
+        .advice-item:nth-child(3) { animation-delay: 1.4s; }
+        .advice-item:nth-child(4) { animation-delay: 1.5s; }
+        .advice-item:nth-child(5) { animation-delay: 1.6s; }
+        .advice-item:nth-child(6) { animation-delay: 1.7s; }
+        
+        .advice-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .advice-number {
+            background: linear-gradient(135deg, #0dcaf0 0%, #20c997 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .advice-item .advice-text {
+            color: white;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            flex: 1;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .btn-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: slideInRight 0.8s ease-out 1.5s both;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .btn-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-back:hover::before {
+            left: 100%;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+            animation: slideInRight 0.8s ease-out 1.2s both;
+            position: relative;
+        }
+        
+        .download-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffc107;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .download-text {
+            color: white;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out 1.3s both;
+        }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            animation: bounceIn 0.8s ease-out 1.4s both;
+        }
+        
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-download:hover::before {
+            left: 100%;
+        }
+        
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #fd7e14 0%, #ffc107 100%);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-home {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            animation: slideInRight 0.8s ease-out 1.6s both;
+        }
+        
+        .btn-home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-home:hover::before {
+            left: 100%;
+        }
+        
+        .btn-home:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .back-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 3;
+            animation: slideInDown 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .back-home a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .back-home a:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+        
+        /* Medical Cross Animation */
+        .medical-cross {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            opacity: 0.5;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: translateY(-50%) rotate(0deg);
+            }
+            to {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
+        
+        /* Data Visualization Effect */
+        .data-viz {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: dataPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes dataPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .result-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .result-header h2 {
+                font-size: 2rem;
+            }
+            
+            .prediction-text {
+                font-size: 1.3rem;
+            }
+            
+            .back-home {
+                position: relative;
+                top: auto;
+                left: auto;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons .btn-back,
+            .action-buttons .btn-home {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .btn-download {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+                display: block;
+            }
+            
+            .floating-icons {
+                display: none;
+            }
+            
+            .confetti {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Animation -->
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    
+    <!-- Floating Medical Icons -->
+    <div class="floating-icons">
+        <div class="floating-icon">🩺</div>
+        <div class="floating-icon">💊</div>
+        <div class="floating-icon">🏥</div>
+        <div class="floating-icon">🔬</div>
+        <div class="floating-icon">❤️</div>
+        <div class="floating-icon">⚕️</div>
+    </div>
+    
+    <div class="back-home">
+        <a href="/">← Back to Home</a>
+    </div>
+    
+    <div class="result-container">
+        <div class="medical-cross">⚕️</div>
+        <div class="data-viz"></div>
+        
+        <div class="result-header">
+            <h2>🔬 Prediction Result</h2>
+        </div>
+        
+        <div class="prediction-result">
+            <span class="success-icon">✅</span>
+            <p class="prediction-text"><strong>{{ prediction }}</strong></p>
+        </div>
+        
+        <!-- Disease Stage Information -->
+        {% if stage_info %}
+        <div class="stage-section">
+            <h4 class="stage-title">
+                <span class="stage-icon">{{ stage_info.stage_icon }}</span> 
+                Disease Stage: <span class="stage-name" style="color: {{ stage_info.stage_color }};">{{ stage_info.stage.title() }}</span>
+            </h4>
+            <p class="stage-description">{{ stage_info.stage_description }}</p>
+            <div class="severity-info">
+                <span class="severity-label">Severity Score:</span>
+                <span class="severity-value">{{ (stage_info.severity_percentage or stage_info.severity_score) | round(0) }}%</span>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="advice-section">
+            <h4 class="advice-title">
+                <span class="icon">💡</span> 
+                {% if stage_info %}
+                    Stage-Specific Prevention Advice
+                {% else %}
+                    Prevention Advice
+                {% endif %}
+            </h4>
+            {% if stage_info and stage_info.prevention_advice %}
+                <div class="advice-list">
+                    {% for advice_item in stage_info.prevention_advice %}
+                        <div class="advice-item">
+                            <span class="advice-number">{{ loop.index }}</span>
+                            <span class="advice-text">{{ advice_item }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="advice-text">{{ advice }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Download Report Section -->
+        <div class="download-section">
+            <h4 class="download-title">
+                <span class="icon">📄</span> Your Health Report
+            </h4>
+            <p class="download-text">Get a comprehensive PDF report with your prediction, prevention advice, and health recommendations.</p>
+            <div class="action-buttons">
+                <a href="/report-preview" class="btn btn-download" style="background: linear-gradient(135deg, #0dcaf0 0%, #20c997 100%);">
+                    👁️ Preview Report
+                </a>
+                <a href="/download-report" class="btn btn-download">
+                    📥 Download PDF
+                </a>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/survey" class="btn btn-back">🔍 Back to Survey</a>
+            <a href="/welcome" class="btn btn-home">🏠 Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

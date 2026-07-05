@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Prevento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 10s linear infinite;
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 1s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 3s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 7s; }
+        
+        @keyframes particleFloat {
+            0% {
+                top: 100%;
+                opacity: 0;
+                transform: scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: -10%;
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        
+        /* Floating Medical Icons */
+        .floating-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .floating-icon:nth-child(3) {
+            bottom: 30%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        .floating-icon:nth-child(4) {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        .floating-icon:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+        
+        .floating-icon:nth-child(6) {
+            top: 60%;
+            right: 5%;
+            animation-delay: 5s;
+        }
+        
+        .floating-icon:nth-child(7) {
+            top: 30%;
+            left: 50%;
+            animation-delay: 6s;
+        }
+        
+        .floating-icon:nth-child(8) {
+            bottom: 50%;
+            right: 50%;
+            animation-delay: 7s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(-30px) rotate(15deg) scale(1.1);
+                opacity: 0.7;
+            }
+        }
+        
+        .welcome-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 90%;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: slideInUp 1s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Doctor Character Animation */
+        .doctor-character {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            animation: doctorEntrance 2s ease-out 0.5s both;
+            position: relative;
+        }
+        
+        @keyframes doctorEntrance {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .doctor-character::after {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 2rem;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3) rotate(180deg);
+                opacity: 0.7;
+            }
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            animation: titleSlideIn 1s ease-out 1s both;
+        }
+        
+        @keyframes titleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .username-highlight {
+            color: #28a745;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            animation: usernamePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes usernamePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            color: #f0f0f0;
+            animation: subtitleSlideIn 1s ease-out 1.5s both;
+        }
+        
+        @keyframes subtitleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .welcome-message {
+            background: rgba(40, 167, 69, 0.2);
+            border: 2px solid rgba(40, 167, 69, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+            animation: messageFadeIn 1s ease-out 2s both;
+        }
+        
+        @keyframes messageFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        
+        .btn-continue {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: buttonSlideIn 1s ease-out 2.5s both;
+        }
+        
+        @keyframes buttonSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .btn-continue::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-continue:hover::before {
+            left: 100%;
+        }
+        
+        .btn-continue:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .welcome-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .welcome-buttons .btn-continue {
+                margin-left: 0 !important;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        /* Pulse Ring Effect */
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: pulseRing 3s ease-out infinite;
+        }
+        
+        @keyframes pulseRing {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Medical Cross Animation */
+        .medical-cross {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: rotate 6s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* DNA Helix Animation */
+        .dna-helix {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.8rem;
+            opacity: 0.5;
+            animation: dnaRotate 4s ease-in-out infinite;
+        }
+        
+        @keyframes dnaRotate {
+            0%, 100% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .doctor-character {
+                font-size: 6rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .floating-icons {
+                display: none;
+            }
+            
+            .particles {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Effect -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- Floating Medical Icons -->
+    <div class="floating-icons">
+        <div class="floating-icon">🩺</div>
+        <div class="floating-icon">💊</div>
+        <div class="floating-icon">🏥</div>
+        <div class="floating-icon">🔬</div>
+        <div class="floating-icon">❤️</div>
+        <div class="floating-icon">⚕️</div>
+        <div class="floating-icon">🧬</div>
+        <div class="floating-icon">🩻</div>
+    </div>
+    
+    <div class="welcome-container">
+        <div class="medical-cross">⚕️</div>
+        <div class="dna-helix">🧬</div>
+        <div class="pulse-ring"></div>
+        
+        <div class="doctor-character">👨‍⚕️</div>
+        
+        <h1 class="welcome-title">
+            Welcome <span class="username-highlight">{{ username }}</span>! 🎉
+        </h1>
+        
+        <p class="welcome-subtitle">
+            Your health journey starts here with AI-powered medical assistance
+        </p>
+        
+        <div class="welcome-message">
+            <p class="message-text">
+                <strong>🎯 Ready to begin?</strong><br>
+                I'm here to help you analyze your symptoms and provide personalized health insights. 
+                Let's work together to understand your health better!
+            </p>
+        </div>
+        
+        <div class="welcome-buttons">
+            <a href="/survey" class="btn btn-continue">
+                🚀 Start Health Survey
+            </a>
+            <a href="/my-reports" class="btn btn-continue" style="margin-left: 15px; background: linear-gradient(135deg, #fd7e14 0%, #ffc107 100%);">
+                📋 My Reports
+            </a>
+            <a href="/profile" class="btn btn-continue" style="margin-left: 15px; background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);">
+                👤 My Profile
+            </a>
+            <button class="btn btn-continue" style="margin-left: 15px; background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);" data-bs-toggle="collapse" data-bs-target="#metricsSection" aria-expanded="false" aria-controls="metricsSection">
+                📊 Show Model Insights
+            </button>
+        </div>
+    </div>
+
+    <!-- Unified Full-Width Dashboard Section -->
+    <section class="mt-4 collapse" id="metricsSection" style="z-index:2;">
+        <div class="container" style="max-width: 1200px;">
+            <div class="p-4 p-md-5 rounded-4 shadow" style="background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.45)); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <h2 class="fw-bold mb-3" style="color:#212529;">📊 Model Performance & Insights</h2>
+
+                <div class="row g-3 align-items-stretch">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm" style="border-radius:16px;">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-muted text-uppercase" style="font-size:12px;">Overall</div>
+                                    <div class="fw-bold" style="font-size:22px;">Model Accuracy</div>
+                                </div>
+                                <div class="display-4 fw-bold" style="color:#198754;">
+                                    {{ (dashboard.test_accuracy or 0)|round(1) }}%
+                                </div>
+                                <div class="badge bg-success-subtle text-success" style="font-size:14px;">✅</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-7">
+                        <div class="card border-0 shadow-sm" style="border-radius:16px;">
+                            <div class="card-body">
+                                <div class="fw-semibold mb-2" style="font-size:18px;">Accuracy Trend (Train vs Test)</div>
+                                <div id="trendLine" style="height:320px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <div class="card border-0 shadow-sm" style="border-radius:16px;">
+                            <div class="card-body">
+                                <div class="fw-semibold mb-2" style="font-size:18px;">Disease Class Distribution</div>
+                                <div id="diseasePie" style="height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-1">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm" style="border-radius:16px;">
+                            <div class="card-body">
+                                <div class="fw-semibold mb-2" style="font-size:18px;">Data Summary</div>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <div class="px-3 py-2 rounded" style="background:#eef7ff;">
+                                        <span class="text-muted">Total Samples</span>
+                                        <div class="fw-bold">{{ dashboard.summary.total_samples }}</div>
+                                    </div>
+                                    <div class="px-3 py-2 rounded" style="background:#eef7ff;">
+                                        <span class="text-muted">Total Symptoms</span>
+                                        <div class="fw-bold">{{ dashboard.summary.total_symptoms }}</div>
+                                    </div>
+                                    <div class="px-3 py-2 rounded" style="background:#eef7ff;">
+                                        <span class="text-muted">Total Diseases</span>
+                                        <div class="fw-bold">{{ dashboard.summary.total_diseases }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Server-passed data for charts
+        const trendLabels = {{ dashboard.trend_labels | tojson }};
+        const trendTrain = {{ dashboard.trend_train | tojson }};
+        const trendTest  = {{ dashboard.trend_test | tojson }};
+        const diseaseLabels = {{ dashboard.disease_labels | tojson }};
+        const diseaseValues = {{ dashboard.disease_values | tojson }};
+
+        let chartsRendered = false;
+        function renderChartsOnce() {
+            if (chartsRendered) return;
+            chartsRendered = true;
+            Plotly.newPlot('trendLine', [
+                { x: trendLabels, y: trendTrain, mode: 'lines+markers', name: 'Train',
+                  line: {color:'#20c997', width:3, shape:'spline'}, marker:{size:7, symbol:'circle'},
+                  fill:'tozeroy', fillcolor:'rgba(32, 201, 151, 0.15)', hovertemplate: 'Train %{x}: %{y:.2f}%<extra></extra>' },
+                { x: trendLabels, y: trendTest,  mode: 'lines+markers', name: 'Test',
+                  line: {color:'#6f42c1', width:3, shape:'spline'}, marker:{size:7, symbol:'circle'},
+                  fill:'tozeroy', fillcolor:'rgba(111, 66, 193, 0.10)', hovertemplate: 'Test %{x}: %{y:.2f}%<extra></extra>' }
+            ], {
+                margin: {t: 10, r: 10, b: 40, l: 50},
+                yaxis: {title: '%', range:[0,100], gridcolor:'rgba(0,0,0,0.08)'},
+                xaxis: {gridcolor:'rgba(0,0,0,0.08)'},
+                legend: {orientation:'h', y: -0.25},
+                paper_bgcolor:'rgba(0,0,0,0)',
+                plot_bgcolor:'rgba(0,0,0,0)'
+            }, {displayModeBar: false, responsive: true});
+
+            // Improve Disease Distribution clarity: sort, top-N + Others, donut style
+            const pairs = diseaseLabels.map((label, i) => ({ label, value: diseaseValues[i] }))
+                .sort((a, b) => b.value - a.value);
+            const TOP_N = 12;
+            const top = pairs.slice(0, TOP_N);
+            const rest = pairs.slice(TOP_N);
+            const othersSum = rest.reduce((acc, p) => acc + p.value, 0);
+            const labelsPie = top.map(p => p.label).concat(othersSum > 0 ? ['Others'] : []);
+            const valuesPie = top.map(p => p.value).concat(othersSum > 0 ? [othersSum] : []);
+
+            Plotly.newPlot('diseasePie', [{
+                labels: labelsPie,
+                values: valuesPie,
+                type: 'pie',
+                hole: 0.45,
+                sort: false,
+                textinfo: 'percent+label',
+                textposition: 'inside',
+                insidetextorientation: 'radial',
+                hovertemplate: '%{label}: %{value} cases (%{percent})<extra></extra>'
+            }], {
+                margin: {t: 10, r: 10, b: 10, l: 10},
+                paper_bgcolor:'rgba(0,0,0,0)',
+                legend: {orientation: 'h', y: -0.1}
+            }, {displayModeBar: false, responsive: true});
+        }
+
+        const metricsSectionEl = document.getElementById('metricsSection');
+        metricsSectionEl.addEventListener('shown.bs.collapse', () => {
+            setTimeout(() => {
+                renderChartsOnce();
+                Plotly.Plots.resize('trendLine');
+                Plotly.Plots.resize('diseasePie');
+            }, 150);
+        });
+    </script>
+</body>
+</html>

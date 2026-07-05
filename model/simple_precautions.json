@@ -1,0 +1,62 @@
+{
+  "Allergy": [
+    "Avoid allergens",
+    "Take antihistamines",
+    "Use air purifier",
+    "Keep windows closed"
+  ],
+  "Gastroenteritis": [
+    "Stay hydrated",
+    "Eat BRAT diet",
+    "Rest",
+    "Avoid dairy"
+  ],
+  "Migraine": [
+    "Rest in a quiet, dark room",
+    "Stay hydrated",
+    "Take pain relievers",
+    "Avoid bright lights"
+  ],
+  "Acne": [
+    "Keep face clean",
+    "Avoid touching face",
+    "Use gentle cleanser",
+    "Don't pop pimples"
+  ],
+  "Urinary tract infection": [
+    "Drink plenty of water",
+    "Increase vitamin C intake",
+    "Drink cranberry juice",
+    "Take probiotics"
+  ],
+  "Common Cold": [
+    "Rest",
+    "Drink plenty of fluids",
+    "Take over-the-counter cold medicine",
+    "Use humidifier"
+  ],
+  "Fungal infection": [
+    "Keep area clean and dry",
+    "Use antifungal cream",
+    "Avoid tight clothing",
+    "Change socks regularly"
+  ],
+  "Drug Reaction": [
+    "Stop taking the medication",
+    "Contact your doctor",
+    "Monitor symptoms",
+    "Stay hydrated"
+  ],
+  "GERD": [
+    "Avoid spicy foods",
+    "Eat smaller meals",
+    "Don't lie down after eating",
+    "Elevate head while sleeping"
+  ],
+  "Bronchial Asthma": [
+    "Use inhaler as prescribed",
+    "Avoid triggers",
+    "Keep rescue inhaler handy",
+    "Monitor breathing"
+  ]
+}

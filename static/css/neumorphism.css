@@ -1,0 +1,361 @@
+/* Global Variables for Neumorphism Design */
+:root {
+    --bg-color: #e0e5ec;
+    --text-primary: #4a4a4a;
+    --text-secondary: #7a7a7a;
+    --accent-color: #4a90e2; /* Soft blue */
+    --accent-hover: #357abd;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a3b1c6;
+    --danger-color: #e74c3c;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+
+    --neu-shadow: 9px 9px 16px var(--shadow-dark), -9px -9px 16px var(--shadow-light);
+    --neu-shadow-hover: 12px 12px 20px var(--shadow-dark), -12px -12px 20px var(--shadow-light);
+    --neu-shadow-inset: inset 6px 6px 10px var(--shadow-dark), inset -6px -6px 10px var(--shadow-light);
+    --neu-shadow-inset-active: inset 8px 8px 14px var(--shadow-dark), inset -8px -8px 14px var(--shadow-light);
+    
+    --neu-border-radius: 15px;
+    --neu-border-radius-sm: 8px;
+    --neu-border-radius-round: 50px;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Layout Utilities */
+.page-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.neu-container {
+    background-color: var(--bg-color);
+    border-radius: var(--neu-border-radius);
+    box-shadow: var(--neu-shadow);
+    padding: 30px;
+    margin: 20px;
+    width: 100%;
+    max-width: 800px;
+    transition: box-shadow 0.3s ease;
+}
+
+.neu-container:hover {
+    box-shadow: var(--neu-shadow-hover);
+}
+
+/* Typography Utilities */
+.text-center { text-align: center; }
+.text-accent { color: var(--accent-color); }
+.text-danger { color: var(--danger-color); }
+.text-success { color: var(--success-color); }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-4 { margin-top: 2rem; }
+
+/* Buttons */
+.neu-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--bg-color);
+    color: var(--accent-color);
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: var(--neu-border-radius-round);
+    box-shadow: var(--neu-shadow);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.neu-btn:hover {
+    color: var(--accent-hover);
+    box-shadow: var(--neu-shadow-hover);
+}
+
+.neu-btn:active {
+    box-shadow: var(--neu-shadow-inset);
+    transform: scale(0.98);
+}
+
+.neu-btn-primary {
+    color: var(--bg-color);
+    background-color: var(--accent-color);
+    box-shadow: 6px 6px 12px rgba(74, 144, 226, 0.3), -6px -6px 12px var(--shadow-light);
+}
+
+.neu-btn-primary:hover {
+    background-color: var(--accent-hover);
+    color: var(--bg-color);
+    box-shadow: 8px 8px 16px rgba(74, 144, 226, 0.4), -8px -8px 16px var(--shadow-light);
+}
+
+.neu-btn-primary:active {
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.2);
+}
+
+.neu-btn-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+/* Forms */
+.neu-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.neu-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+    padding-left: 5px;
+}
+
+.neu-input {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: var(--neu-border-radius-round);
+    box-shadow: var(--neu-shadow-inset);
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.neu-input::placeholder {
+    color: #a0a0a0;
+}
+
+.neu-input:focus {
+    box-shadow: var(--neu-shadow-inset-active);
+}
+
+/* Checkboxes and Radios */
+.neu-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.neu-radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.neu-radio-input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-inset);
+    margin-right: 15px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.neu-radio-input:checked {
+    box-shadow: var(--neu-shadow);
+}
+
+.neu-radio-input:checked::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+}
+
+/* Checkbox specific */
+.neu-checkbox-input {
+    border-radius: var(--neu-border-radius-sm);
+}
+
+.neu-checkbox-input:checked::after {
+    content: '✓';
+    color: var(--accent-color);
+    font-size: 14px;
+    font-weight: bold;
+    background: none;
+    width: auto;
+    height: auto;
+}
+
+/* Cards / Tiles */
+.neu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+.neu-card {
+    background-color: var(--bg-color);
+    border-radius: var(--neu-border-radius);
+    box-shadow: var(--neu-shadow);
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.neu-card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+/* Alerts / Messages */
+.neu-alert {
+    padding: 15px 20px;
+    border-radius: var(--neu-border-radius);
+    margin-bottom: 20px;
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-inset);
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.neu-alert-success {
+    border-left: 4px solid var(--success-color);
+}
+
+.neu-alert-error, .neu-alert-danger {
+    border-left: 4px solid var(--danger-color);
+}
+
+/* Navbar / Top Bar (Optional if they want global nav) */
+.neu-navbar {
+    width: 100%;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow);
+    border-radius: var(--neu-border-radius);
+    margin-bottom: 30px;
+}
+
+.neu-nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.neu-nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+/* Flash Messages Wrapper */
+.flash-messages {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+/* Result specific */
+.neu-progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    box-shadow: var(--neu-shadow-inset);
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.neu-progress-bar {
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    width: 0%; /* To be set inline */
+    transition: width 1s ease-in-out;
+}
+
+.neu-progress-bar.high-risk { background-color: var(--danger-color); }
+.neu-progress-bar.medium-risk { background-color: var(--warning-color); }
+.neu-progress-bar.low-risk { background-color: var(--success-color); }
+
+/* Decorative Elements */
+.neu-divider {
+    height: 2px;
+    width: 100%;
+    background: var(--bg-color);
+    box-shadow: var(--neu-shadow-inset);
+    margin: 20px 0;
+    border-radius: 2px;
+}
